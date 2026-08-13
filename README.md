@@ -24,10 +24,10 @@ A zero-dependency checker for sequential numeric citations (`[1]`, `[1-3]`, `［
 ## 安装
 
 ```bash
-pip install zh-cite-check
+pip install git+https://github.com/hc-ui/zh-cite-check.git
 ```
 
-无任何第三方运行时依赖，Python 3.9+。开发版：
+无任何第三方运行时依赖，Python 3.9+。（PyPI 包名 `zh-cite-check` 上架中，上架后可直接 `pip install zh-cite-check`。）开发版：
 
 ```bash
 pip install -e ".[dev]"
