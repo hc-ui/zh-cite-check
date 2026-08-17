@@ -4,11 +4,13 @@
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://github.com/hc-ui/zh-cite-check)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**检查中文学术论文正文引用序号与参考文献表是否一一对应。**
+正文写着 `[7]`，参考文献表里却没有第 7 条？这个工具查的就是这件事。
 
-A zero-dependency checker for sequential numeric citations (`[1]`, `[1-3]`, `［1］`, …) in Chinese and mixed-language papers. Paste a thesis chapter, get a rule-by-rule report: every in-text number must exist in the list, every list item must be cited, and the numbering must be contiguous from 1.
+粘一篇论文进去：每个正文序号都得在表里，每条文献都得被引用过，编号还得从 1 连着。零依赖。
 
-与 [gbt7714-lint](https://github.com/hc-ui/gbt7714-lint) **互补**：那个工具查 GB/T 7714 **著录格式**，本工具查 **序号是否对得上**。学位论文交付前两条流水线一起跑，格式和索引各管各的。
+和 [gbt7714-lint](https://github.com/hc-ui/gbt7714-lint) 互补：那个查 **GB/T 7714 怎么写**，这个查 **序号对不对**。交论文前两条一起跑。
+
+English: sequential citation checker for `[1]` / `[1-3]` — unused, missing, and out-of-order numbers.
 
 ## 为什么需要它
 
@@ -27,7 +29,7 @@ A zero-dependency checker for sequential numeric citations (`[1]`, `[1-3]`, `［
 pip install git+https://github.com/hc-ui/zh-cite-check.git
 ```
 
-无任何第三方运行时依赖，Python 3.9+。（PyPI 包名 `zh-cite-check` 上架中，上架后可直接 `pip install zh-cite-check`。）开发版：
+无第三方依赖，Python 3.9+。尚未上 PyPI，请从 Git 安装。开发：
 
 ```bash
 pip install -e ".[dev]"
