@@ -358,3 +358,9 @@ def test_cli_requires_input_or_clip():
 
     with pytest.raises(SystemExit):
         main([])
+
+
+def test_cli_empty_clipboard(monkeypatch, capsys):
+    monkeypatch.setattr("zh_cite_check.cli._read_clipboard", lambda: "\n")
+    assert main(["--clip"]) == 2
+    assert "空" in capsys.readouterr().err

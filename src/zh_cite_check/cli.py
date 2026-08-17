@@ -101,6 +101,10 @@ def main(argv: list[str] | None = None) -> int:
     else:
         parser.error("请提供论文文件，或使用 --clip / -")
 
+    if not text.strip():
+        print("没有可检查的文本（文件或剪贴板是空的）。", file=sys.stderr)
+        return 2
+
     result = check_text(text, source=source_name)
     print(render_json(result, source_name) if args.json else render_text(result, source_name))
     return 1 if result.error_count else 0
