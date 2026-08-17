@@ -343,3 +343,18 @@ def test_cli_stdin(monkeypatch, capsys):
 def test_cli_missing_file():
     code = main(["/nonexistent/zh-cite-check-nope.md"])
     assert code == 2
+
+
+def test_cli_clip(monkeypatch, capsys):
+    monkeypatch.setattr("zh_cite_check.cli._read_clipboard", lambda: GOOD)
+    code = main(["--clip"])
+    captured = capsys.readouterr()
+    assert code == 0
+    assert "未发现问题" in captured.out
+
+
+def test_cli_requires_input_or_clip():
+    import pytest
+
+    with pytest.raises(SystemExit):
+        main([])

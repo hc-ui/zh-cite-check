@@ -42,6 +42,9 @@ pytest
 # 检查一篇 Markdown / 纯文本论文
 zh-cite-check thesis.md
 
+# 从 Word 复制后直接检查剪贴板
+zh-cite-check --clip
+
 # 机器可读输出（供脚本 / CI 使用）
 zh-cite-check thesis.md --json
 
