@@ -82,6 +82,20 @@ def test_comma_list_and_consecutive_brackets():
     assert any(i.rule_id == "W101" for i in result.issues)
 
 
+def test_lenticular_brackets():
+    text = (
+        "结论见【1】和【2，3】。\n\n"
+        "参考文献\n"
+        "【1】 张三. 题[J]. 刊, 2020.\n"
+        "[2] 李四. 题[M]. 北京: 社, 2019.\n"
+        "[3] 王五. 题[D]. 南京: 校, 2021.\n"
+    )
+    result = check_text(text)
+    assert result.cited == [1, 2, 3]
+    assert result.bibliography == [1, 2, 3]
+    assert result.error_count == 0
+
+
 def test_fullwidth_brackets():
     text = (
         "结论见［1］和［2，3］。\n\n"
@@ -343,6 +357,26 @@ def test_cli_stdin(monkeypatch, capsys):
 def test_cli_missing_file():
     code = main(["/nonexistent/zh-cite-check-nope.md"])
     assert code == 2
+
+
+def test_read_clipboard_tries_wayland_tools(monkeypatch):
+    import subprocess
+
+    from zh_cite_check.cli import _read_clipboard
+
+    calls: list[list[str]] = []
+
+    def fake_run(command, **kwargs):
+        calls.append(list(command))
+        if command[0] == "wl-paste":
+            completed = subprocess.CompletedProcess(command, 0, stdout=b"ok", stderr=b"")
+            return completed
+        raise OSError("missing")
+
+    monkeypatch.setattr("zh_cite_check.cli.sys.platform", "linux")
+    monkeypatch.setattr("zh_cite_check.cli.subprocess.run", fake_run)
+    assert _read_clipboard() == "ok"
+    assert ["wl-paste"] in calls
 
 
 def test_cli_clip(monkeypatch, capsys):
