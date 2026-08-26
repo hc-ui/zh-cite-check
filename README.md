@@ -96,7 +96,7 @@ for issue in result.issues:
 
 **故意忽略**
 
-- Markdown 链接 `[\u8bf4明](https://example.com)`、图片、参考式链接、链接定义、围栏/行内代码
+- Markdown 链接 `[说明](https://example.com)`、图片、参考式链接、链接定义、围栏/行内代码
 - GB/T 7714 文献类型 / 载体标识：`[J]` `[M]` `[D]` `[EB/OL]` `[J/OL]` 等
 - 看起来像日期的方括号 `[2024-05-06]`
 
