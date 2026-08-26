@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "zh-cite-check"
-version = "0.1.2"
+version = "0.1.3"
 description = "Check that in-text citation numbers in Chinese/mixed academic papers match the numbered bibliography"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -48,7 +48,15 @@ Changelog = "https://github.com/hc-ui/zh-cite-check/blob/main/CHANGELOG.md"
 zh-cite-check = "zh_cite_check.cli:main"
 
 [project.optional-dependencies]
-dev = ["pytest>=7"]
+dev = ["pytest>=7", "ruff>=0.4"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+ignore = ["E501"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
