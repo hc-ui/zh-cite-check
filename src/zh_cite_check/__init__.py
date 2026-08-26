@@ -2,6 +2,6 @@
 
 from .check import CheckResult, Issue, check_text
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 __all__ = ["check_text", "CheckResult", "Issue", "__version__"]
