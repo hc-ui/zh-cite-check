@@ -96,6 +96,20 @@ def test_lenticular_brackets():
     assert result.error_count == 0
 
 
+def test_tortoise_shell_brackets():
+    text = (
+        "结论见〔1〕和〔2，3〕。\n\n"
+        "参考文献\n"
+        "〔1〕 张三. 题[J]. 刊, 2020.\n"
+        "[2] 李四. 题[M]. 北京: 社, 2019.\n"
+        "[3] 王五. 题[D]. 南京: 校, 2021.\n"
+    )
+    result = check_text(text)
+    assert result.cited == [1, 2, 3]
+    assert result.bibliography == [1, 2, 3]
+    assert result.error_count == 0
+
+
 def test_fullwidth_brackets():
     text = (
         "结论见［1］和［2，3］。\n\n"
@@ -261,6 +275,19 @@ def test_w101_out_of_order_first_appearance():
     assert result.error_count == 0  # both cited, numbering contiguous
 
 
+def test_arabic_numbered_heading_is_recognized():
+    text = (
+        "见[1]。\n\n"
+        "1. 参考文献\n"
+        "[1] A. t[J]. x, 1.\n"
+    )
+    result = check_text(text)
+    assert result.heading_found is True
+    assert result.cited == [1]
+    assert result.bibliography == [1]
+    assert result.error_count == 0
+
+
 def test_w102_fallback_without_heading():
     text = (
         "正文引用[1]和[2]。\n\n"
@@ -269,7 +296,9 @@ def test_w102_fallback_without_heading():
     )
     result = check_text(text)
     assert result.heading_found is False
-    assert _by_rule(result, "W102")
+    w102 = _by_rule(result, "W102")
+    assert w102
+    assert "文末" in w102[0].message
     assert result.cited == [1, 2]
     assert result.bibliography == [1, 2]
     assert result.error_count == 0
