@@ -37,7 +37,12 @@ def _read_clipboard() -> str:
             err = _decode(completed.stderr).strip() or "Get-Clipboard failed"
             raise OSError(err)
         return _decode(completed.stdout)
-    for command in (["pbpaste"], ["xclip", "-selection", "clipboard", "-o"]):
+    for command in (
+        ["pbpaste"],
+        ["wl-paste"],
+        ["xclip", "-selection", "clipboard", "-o"],
+        ["xsel", "--clipboard", "--output"],
+    ):
         try:
             completed = subprocess.run(command, capture_output=True, check=False)
         except OSError:
