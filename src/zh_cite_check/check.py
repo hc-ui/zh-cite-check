@@ -82,7 +82,7 @@ _HEADING_RE = re.compile(
     ^\s{0,3}
     (?:\#{1,6}\s+)?
     (?:\d+[.\uff0e\u3001]\s*)?
-    (?:[（(]?\s*[一二三四五六七八九十0-9]+\s*[）)]\s*)?
+    (?:[（(]?\s*[一二三四五六七八九十零万两]+\s*[）)]\s*)?
     (?:\*{1,2}|_{1,2})?
     (参考文献|参考书目|引用文献|参考资料|References|Bibliography|Works\s+Cited)
     (?:\*{1,2}|_{1,2})?
@@ -413,7 +413,7 @@ def check_text(text: str, source: str = "") -> CheckResult:
                 severity="warning",
                 message=(
                     "未找到「参考文献 / References」标题，"
-                    "已将尚未连续编号行视为参考文献表"
+                    "已将文末连续编号行视为参考文献表"
                 ),
                 line=start + 1,
             )
